@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+
+	"github.com/garysmi/go-8008/disassembler"
 )
 
 func check_err(e error) {
@@ -27,8 +29,9 @@ func main() {
 	bufr := bufio.NewReader(file)
 	_, err = bufr.Read(bytes)
 
-	Disassemble(bytes)
+	disassembler.Disassemble(bytes)
 
+	fmt.Printf("%T\n", bytes)
 	for i := 0; i < len(bytes); i++ {
 		fmt.Printf("%#02x ", bytes[i])
 	}
