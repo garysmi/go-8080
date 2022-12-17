@@ -21,16 +21,16 @@ func (cpu *Processor) Ora(r string) {
 	if cpu.A&0b1000000 == 0 {
 		cpu.SetSign()
 	} else {
-		cpu.resetSign()
+		cpu.ResetSign()
 	}
 
 	if cpu.A == 0x00 {
 		cpu.SetZero()
 	} else {
-		cpu.resetZero()
+		cpu.ResetZero()
 	}
 
-	if cpu.Parity(res) {
+	if parity(res) {
 		cpu.SetParity()
 	} else {
 		cpu.ResetParity()

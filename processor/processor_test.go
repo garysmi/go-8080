@@ -37,7 +37,7 @@ func TestParity(t *testing.T) {
 	if !result {
 		t.Logf("cpu.Parity() success, expected %v, got %v", false, result)
 	} else {
-		t.Errorf("cpu.setCarry() failed, expected %v, got %v", false, result)
+		t.Errorf("cpu.Parity() failed, expected %v, got %v", false, result)
 	}
 
 	result = proc.Parity(0xAA)
@@ -45,6 +45,6 @@ func TestParity(t *testing.T) {
 	if result {
 		t.Logf("cpu.Parity() success, expected %v, got %v", true, result)
 	} else {
-		t.Errorf("cpu.setCarry() failed, expected %v, got %v", true, result)
+		t.Errorf("cpu.Parity() failed, expected %v, got %v", true, result)
 	}
 }

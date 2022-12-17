@@ -94,14 +94,14 @@ func (cpu *Processor) ResetAuxCarry() {
 }
 
 // ResetZero resets the Zero bit if set
-func (cpu *Processor) resetZero() {
+func (cpu *Processor) ResetZero() {
 	if cpu.CheckZero() == 1 {
 		cpu.SetZero()
 	}
 }
 
 // ResetSign resets the Sign bit if set
-func (cpu *Processor) resetSign() {
+func (cpu *Processor) ResetSign() {
 	cpu.FLAGS = cpu.FLAGS ^ 0b1000000
 }
 
@@ -120,15 +120,29 @@ func (cpu *Processor) PrintState() {
 	// fmt.Printf("MEMORY: %#x\n", cpu.MEMORY)
 }
 
-//Parity returns true if the number of set bits is odd
-func (cpu *Processor) Parity(x uint8) bool {
-	x ^= (x >> 4)
-	x ^= (x >> 2)
-	x ^= (x >> 1)
+//Status flags - checks if value causes changes to the status flags
+func (cpu *Processor) Status_flags(value uint8) {
 
-	if x&0x01 == 0 {
-		return true
+	if value > 0xff {
+		cpu.SetCarry()
 	}
 
-	return false
+	if value&0b1000000 == 0 {
+		cpu.SetSign()
+	} else {
+		cpu.ResetSign()
+	}
+
+	if value == 0x00 {
+		cpu.SetZero()
+	} else {
+		cpu.ResetZero()
+	}
+
+	if parity(value) {
+		cpu.SetParity()
+	} else {
+		cpu.ResetParity()
+	}
+
 }
